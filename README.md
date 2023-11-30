@@ -49,6 +49,7 @@ The combination of Outputdata and React to Events are -> _Two-Way-Binding_ ([ngM
 
 1. String Interpolation: A great tool for outputting data from my ts file into the html template.
 2. Property Binding: [disabled]="booleanVal"
+3. Event Binding: (click)="function()"
 
 - Property Binding vs. String Interpolation:
 
