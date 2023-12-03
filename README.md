@@ -55,4 +55,10 @@ The combination of Outputdata and React to Events are -> _Two-Way-Binding_ ([ngM
 
 ## Directives
 
+Directives are Instructions in the DOM.
 It tells Angular to listen to anything you enter and store it in the given name property.
+
+1. ngIf: Super important director.
+2. ngStyle: Dynamically assign a style.
+3. ngClass: Dynamically assign or remove CSS classes.
+4. ngFor: `let logItem of log; let i = index;` for getting the index.
