@@ -62,3 +62,23 @@ It tells Angular to listen to anything you enter and store it in the given name 
 2. ngStyle: Dynamically assign a style.
 3. ngClass: Dynamically assign or remove CSS classes.
 4. ngFor: `let logItem of log; let i = index;` for getting the index.
+
+## Databinding
+
+Properties are only accessible in their components.
+
+- Binding to Custom Properties: using `@Input('properties you want to use outside this component')`
+- `@Output()`
+
+- Binding to Custom Events: `EventEmitter<>` this.serverCreated.emit();
+
+> Understanding view encapsulation: Only your component receives the styles you define for it, and it can be overwritten.
+
+- ngOnInit(): A lifecycle hook, called once the component is initialized.
+- ngOnChange(): Called after a bound input property changes.
+- ngDoCheck(): Called during every chagne detection run.
+- ngAfterContentInit: Called after content(ng-content) has been projected into view.
+- ngAfterContentChecked:Called every time the projected content has been checked.
+- ngAfterViewInit: Called after the component's view(and child views) has been initialized.
+- ngAfterViewCheck: Called every time the view(and child views)has been checked.
+- ngOnDestroy: Called once the component is about to be destroyed.
