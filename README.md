@@ -123,3 +123,7 @@ Properties are only accessible in their components.
 - ngAfterViewInit: Called after the component's view(and child views) has been initialized.
 - ngAfterViewCheck: Called every time the view(and child views)has been checked.
 - ngOnDestroy: Called once the component is about to be destroyed.
+
+## Servers & Dependency Injection
+
+Injecting is to add to the @Component a providers:[name of the service].

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../../recipe.model';
+import { RecipeService } from '../../recipe.service';
 
 @Component({
   selector: 'app-recipe-item',
@@ -8,13 +9,12 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipe: Recipe; // TO GET ANY DATA FROM OUTSIDE, WE NEED A DECORATOR INPUT (ALLOW US TO BIND THIS COMPONENT PROPERRTY FROM OUTSIDE)
-  @Output() recipeSelected = new EventEmitter<void>(); // LISTEN FROM OUTSIDE
 
-  constructor() {}
+  constructor(private recipeServer: RecipeService) {}
 
   ngOnInit(): void {}
 
   onSelected() {
-    this.recipeSelected.emit();
+    this.recipeServer.recipeSelected.emit(this.recipe);
   }
 }
