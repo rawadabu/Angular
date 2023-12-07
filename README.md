@@ -58,10 +58,51 @@ The combination of Outputdata and React to Events are -> _Two-Way-Binding_ ([ngM
 Directives are Instructions in the DOM.
 It tells Angular to listen to anything you enter and store it in the given name property.
 
-1. ngIf: Super important director.
-2. ngStyle: Dynamically assign a style.
-3. ngClass: Dynamically assign or remove CSS classes.
-4. ngFor: `let logItem of log; let i = index;` for getting the index.
+1. \*ngIf: Super important director.
+2. \*ngStyle: Dynamically assign a style.
+3. \*ngClass: Dynamically assign or remove CSS classes.
+4. \*ngFor: `let logItem of log; let i = index;` for getting the index.
+5. \*ngSwitch: Like switch case
+
+Attribute Directive: You never destory, you only change properties of that element, for example the backgroundColor.
+Structural Directives: Affect the whole DOM or the view container.(directive with a \*, Angular willl transform them to something else, )
+
+Creating a Basic Attribute Directive:
+Filename: better-highlight.directive.ts
+
+```
+@Directive({
+  selector: '[appBasicHighlight]'
+})
+export class BasicHighlightDirective implements OnInit{
+  constructor(private elementRef: ElementRef){
+  }
+
+  ngOnOnit(){
+    this.elementRef.nativeElement.style.backgroundColor = 'green';
+  }
+}
+```
+
+> Directives Deep Dive (HostListener, HostBinding, ngFor, ngIf, ngClass, ngStyle, Attribute Directive)
+
+- Using HostBinding to Bind to Host Properties:
+
+```
+@HostBinding('style.backgroundColor') backgroundColor: string = 'transparent'; //On the element this directive sits, please access the style property.
+```
+
+- Using HostListener to Listen to Host Events:
+
+```
+@HostListener('mouseenter') mouseover(eventData: Event){
+  this.backgroundColor = 'blue';
+}
+
+@HostListener('mouseleave') mouseleave(eventData: Event){
+    this.backgroundColor = 'transparent';
+}
+```
 
 ## Databinding
 
