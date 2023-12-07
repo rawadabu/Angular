@@ -28,6 +28,10 @@ export class RecipeService {
     return this.recipes.slice(); // WILL RETURN A NEW ARRAY(COPY) SO  WE CANT ACCESS!
   }
 
+  getRecipe(index: number) {
+    return this.recipes.slice()[index];
+  }
+
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
   }
