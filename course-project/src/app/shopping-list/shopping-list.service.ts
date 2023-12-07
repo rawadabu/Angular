@@ -1,13 +1,10 @@
 import { EventEmitter } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { shoppinglistMockData } from './shopping-list.mock-data';
 
 export class ShoppingListService {
   ingredientsChanged = new EventEmitter<Ingredient[]>(); // CAN EMIT OUR INGREDIENT ARRAY
-  private ingredients: Ingredient[] = [
-    new Ingredient('Apples', 5),
-    new Ingredient('Tomatoes', 5),
-  ];
-
+  private ingredients: Ingredient[] = shoppinglistMockData;
   getIngredients() {
     return this.ingredients.slice();
   }
