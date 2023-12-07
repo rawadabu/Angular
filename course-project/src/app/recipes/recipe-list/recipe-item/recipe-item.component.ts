@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Recipe } from '../../recipe.model';
 
 @Component({
@@ -8,8 +8,13 @@ import { Recipe } from '../../recipe.model';
 })
 export class RecipeItemComponent implements OnInit {
   @Input() recipe: Recipe; // TO GET ANY DATA FROM OUTSIDE, WE NEED A DECORATOR INPUT (ALLOW US TO BIND THIS COMPONENT PROPERRTY FROM OUTSIDE)
+  @Output() recipeSelected = new EventEmitter<void>(); // LISTEN FROM OUTSIDE
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onSelected() {
+    this.recipeSelected.emit();
+  }
 }
