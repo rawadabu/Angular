@@ -6,8 +6,14 @@ import { Subject } from 'rxjs';
 export class ShoppingListService {
   ingredientsChanged = new Subject<Ingredient[]>(); // CAN EMIT OUR INGREDIENT ARRAY
   private ingredients: Ingredient[] = shoppinglistMockData;
+  startedEditing = new Subject<number>();
+
   getIngredients() {
     return this.ingredients.slice();
+  }
+
+  getIngredient(index: number) {
+    return this.ingredients[index];
   }
 
   addIngredient(ingredient: Ingredient) {

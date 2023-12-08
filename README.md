@@ -213,3 +213,13 @@ this.firstObservableSubscribtion.subscribe(data=> {
 ## Operators
 
 The magic feature of RxJS library
+
+## Forms
+
+### How Angular works with Forms
+
+Angular retrives the data used at the form, and check things like is the form valid...
+Angular offers 2 approaching for handling forms:
+
+1. Template-Driven: Angular infers the Form Object form the DOM.
+2. Reactive: Form is created programmatically and synchronized with the DOM.
