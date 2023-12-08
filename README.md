@@ -127,3 +127,89 @@ Properties are only accessible in their components.
 ## Servers & Dependency Injection
 
 Injecting is to add to the @Component a providers:[name of the service].
+
+## Observables
+
+Observables are that stream of data, and whenever a new data has emitted, our subscribtion will know about it.
+
+> Its added by a package name rxjs, you find it in package.json which lists all our dependencies, you find rxjs there.
+
+Variuos data sources, user inputs events, http requests, triggered in code ...
+
+> Observer: This is actually your code, its the `subscribe` function.
+> 3 Data packages we can receive, Handle Data, Handle Error, Handle Completion.
+
+- params is an observable to which we subscribe, to be informed about changes in data.
+- interval is an timer event emitter `interval(period: 1000).subscribe(count => { console.log(count)});` it increments value (count) by 1 every second. (be aware of memory leak, starting new observable after each click for example).
+- To prevent memory leak.
+
+```
+private firstObservableSubscribtion: Subscription;
+this.firstObservableSubscription = interval(1000).subscribe(count => {console.log(count)});
+```
+
+And we can also implement
+
+```
+ngOnDestroy(): void{
+  this.firstObservableSubscription.unsubscribe();
+}
+```
+
+That means that whenever we leave that component(navigate away), we clear the previous subscription.
+
+- We can also build our own custom observable:
+  observer.next():
+
+```
+const customIntervalObservable = Observable.create(observer => {
+  setInterval(()=> {
+     observer.next(count);
+     count++;
+      }, 1000)
+})
+
+this.firstObservableSubscribtion.subscribe(data=> console.log(data));
+```
+
+observer.error():
+
+```
+const customIntervalObservable = Observable.create(observer => {
+  setInterval(()=> {
+     observer.next(count);
+     if(count > 3) {
+      observer.error(new Error("Count is greater that 3 !"));
+     }
+     count++;
+      }, 1000)
+})
+
+this.firstObservableSubscribtion.subscribe(data=> console.log(data));
+```
+
+observer.complete():
+
+```
+const customIntervalObservable = Observable.create(observer => {
+  setInterval(()=> {
+     observer.next(count);
+     if(count == 2){
+      observer.complete();
+     }
+     if(count > 3) {
+      observer.error(new Error("Count is greater that 3 !"));
+     }
+     count++;
+      }, 1000)
+})
+
+this.firstObservableSubscribtion.subscribe(data=> {
+  console.log(data);
+}, error => console.log(error);
+  alert(error.message) );
+```
+
+## Operators
+
+The magic feature of RxJS library
