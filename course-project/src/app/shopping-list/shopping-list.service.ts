@@ -21,6 +21,11 @@ export class ShoppingListService {
     this.ingredientsChanged.next(this.ingredients.slice());
   }
 
+  deleteIngredient(index: number) {
+    this.ingredients.splice(index, 1); // REMOVED THE NEEDED ELEMENT
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+
   addIngredient(ingredient: Ingredient) {
     this.ingredients.push(ingredient);
     this.ingredientsChanged.next(this.ingredients.slice());
