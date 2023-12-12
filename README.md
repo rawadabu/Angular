@@ -223,3 +223,34 @@ Angular offers 2 approaching for handling forms:
 
 1. Template-Driven: Angular infers the Form Object form the DOM.
 2. Reactive: Form is created programmatically and synchronized with the DOM.
+
+- Template-Driven:
+
+1. Registering the Controls: using `ngModel` as a directive may be available on Form module.
+
+- Reactive:
+
+## Pipes
+
+The main purpose is transforming values.
+
+```
+username = 'Max'
+
+<p> {{ username }} </p>
+```
+
+I want to change it while represeiting it to the view, so we use | pipes.
+
+```
+username = 'Max'
+
+<p> {{ username | uppercase }} </p>
+```
+
+## HTTP
+
+- How to I connect Angular to Database?
+  We don't connect Angular to a database directly, this would be highly in-secure, because everyone can read you Angular code. So instead we use HTTP request/respond from a server, a server is an API.
+
+- The anatomy of Http request: GET, POST, PATCH, DELETE.
