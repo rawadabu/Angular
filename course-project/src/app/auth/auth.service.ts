@@ -19,7 +19,7 @@ export interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>();
+  user = new Subject<User>(); // Using a subject will inform all places in the application about when our user changes
 
   constructor(private http: HttpClient) {}
   signup(email: string, password: string) {
@@ -59,6 +59,7 @@ export class AuthService {
           );
         })
       );
+    // The tap doesn't change/add/remove any, it just chain the pipe and manipulate more things to do
   }
 
   private handleAuthentication(
