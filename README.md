@@ -254,3 +254,10 @@ username = 'Max'
   We don't connect Angular to a database directly, this would be highly in-secure, because everyone can read you Angular code. So instead we use HTTP request/respond from a server, a server is an API.
 
 - The anatomy of Http request: GET, POST, PATCH, DELETE.
+
+## Authentication
+
+> How Authentication Works?
+
+We have a Client, and a Server, when the user enters his credentials, so the e-mail and password, then this authentication data is sent to a server where that data is validated.
+If all the data is valid, the server will send the client a TOKEN, a JSON Web Token typically. That is an encoded string which contain a lot of metadata and that string is encoded not encrypted, which means this string could be unpacked and read by the client. Only the server knows and only the server can validate incoming tokens for their validity.
