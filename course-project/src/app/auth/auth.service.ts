@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
+import { enviroment } from '../../enviroments/enviroment';
 
 // Optional! best practice
 export interface AuthResponseData {
@@ -30,7 +31,8 @@ export class AuthService {
     // WE WILL FIND RESPONSE DATA IN THE <AuthResponseData>
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD6mmi_NQeI1EsWwIJ7c-XLj4kNd-kW0vg',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          enviroment.firebaseAPIKey,
         { email: email, password: password, returnSecureToken: true }
       )
       .pipe(
@@ -49,7 +51,8 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD6mmi_NQeI1EsWwIJ7c-XLj4kNd-kW0vg',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          enviroment.firebaseAPIKey,
         { email: email, password: password, returnSecureToken: true }
       )
       .pipe(
