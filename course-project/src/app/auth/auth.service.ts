@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from './user.model';
+import { Router } from '@angular/router';
 
 // Optional! best practice
 export interface AuthResponseData {
@@ -19,9 +20,10 @@ export interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>(); // Using a subject will inform all places in the application about when our user changes
+  user = new BehaviorSubject<User>(null); // Using a subject will inform all places in the application about when our user changes
+  // Behaviour Subject gives previous emitted value, even if they haven't subscribed at the point of the time that the value emitted(acces to the last user logged in)
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
   signup(email: string, password: string) {
     // WE WILL FIND RESPONSE DATA IN THE <AuthResponseData>
     return this.http
@@ -62,6 +64,11 @@ export class AuthService {
     // The tap doesn't change/add/remove any, it just chain the pipe and manipulate more things to do
   }
 
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
+
   private handleAuthentication(
     email: string,
     userId: string,
@@ -73,20 +80,20 @@ export class AuthService {
     this.user.next(user);
   }
 
-  private handleError(errorRes: HttpErrorResponse): Observable<never> {
+  private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
     switch (errorRes.error.error.message) {
       case 'EMAIL_EXISTS':
-        errorMessage = 'This email already exists!';
+        errorMessage = 'This email exists already';
         break;
       case 'EMAIL_NOT_FOUND':
-        errorMessage = 'This email not found!';
+        errorMessage = 'This email does not exist.';
         break;
       case 'INVALID_PASSWORD':
-        errorMessage = 'The password is invalid!';
+        errorMessage = 'This password is not correct.';
         break;
     }
     return throwError(errorMessage);
