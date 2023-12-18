@@ -28,12 +28,20 @@ export class DataStorageService {
 
   // take(1) means I only want to take one value from that observable, and thereafter it should automatically unsubscribe (takes the latest user)
   fetchRecipes() {
-    return this.http
-      .get<Recipe[]>(
-        'https://recipe-book-5c34a-default-rtdb.firebaseio.com/recipes.json'
-      )
+    return this.authService.user
       .pipe(
+        take(1),
+        exhaustMap((user) => {
+          console.log('User:', user);
+          return this.http.get<Recipe[]>(
+            'https://recipe-book-5c34a-default-rtdb.firebaseio.com/recipes.json',
+            {
+              params: new HttpParams().set('auth', user.token),
+            }
+          );
+        }),
         map((recipes) => {
+          console.log('Fetched Recipes:', recipes);
           return recipes.map((recipe) => {
             return {
               ...recipe,
@@ -42,8 +50,19 @@ export class DataStorageService {
           });
         }),
         tap((recipes) => {
+          console.log('Setting Recipes:', recipes);
           this.recipeService.setRecipes(recipes);
         })
+      )
+      .subscribe(
+        (success) => {
+          console.log('Fetch successful:', success);
+          // Additional logic if needed
+        },
+        (error) => {
+          console.error('Fetch error:', error);
+          // Additional error handling if needed
+        }
       );
   }
 }
