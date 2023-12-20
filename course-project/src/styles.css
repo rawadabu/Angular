@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+/* Example media query for small screens */
+@media (max-width: 767px) {
+  /* Styles for small screens */
+}
